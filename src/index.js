@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 
 const App = () => (
-  <h1>
-    Welcome to BitHub
-  </h1>
+  
+  <h1>Welcome to BitHub</h1>
+  
 )
   
 ReactDOM.render(
