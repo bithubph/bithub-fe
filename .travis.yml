@@ -6,10 +6,13 @@ cache:
     - node_modules
 
 script:
-  - npm test
+    - npm test -- --coverage # Include coverage when running tests
 
-env:
-  - CI=true
+  env:
+    - CI=true   
+
+after_script: # Upload coverage reports
+    - COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls
 
 before_deploy:
   - npm install netlify-cli -g
@@ -17,7 +20,7 @@ before_deploy:
 
 deploy:
   provider: script
-  script: netlify deploy -s $NETLIFY_SITE_ID -t $NETLIFY_ACCESS_TOKEN -p ./build
+  script: netlify deploy -s $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN -p --dir ./build
   skip_cleanup: true
   on:
     branch: develop
