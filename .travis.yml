@@ -6,7 +6,7 @@ cache:
     - node_modules
 
 script:
-    - npm test -- --coverage # Include coverage when running tests
+  - npm test -- --coverage --watchAll=false # Include coverage when running tests
 
   env:
     - CI=true   
