@@ -1,18 +1,20 @@
 language: node_js
-node_js: node
+
+node_js:
+  - stable
 
 cache:
   directories:
     - node_modules
 
+install:
+  - npm install -q --no-color --no-progress
+
 script:
   - npm test -- --coverage --watchAll=false # Include coverage when running tests
 
-  env:
-    - CI=true   
-
 after_script: # Upload coverage reports
-    - COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls
+  - npm run coveralls
 
 before_deploy:
   - npm install netlify-cli -g
