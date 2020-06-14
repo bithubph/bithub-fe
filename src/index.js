@@ -1,16 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Bugsnag from '@bugsnag/js';
+import BugsnagPluginReact from '@bugsnag/plugin-react';
+
 import App from "./App";
 import * as serviceWorker from './serviceWorker';
-  
+
+Bugsnag.start({
+  apiKey: process.env.REACT_APP_BUGSNAG_API_KEY,
+  plugins: [new BugsnagPluginReact()]
+});
+
+const ErrorBoundary = Bugsnag.getPlugin('react')
+  .createErrorBoundary(React)
+
 ReactDOM.render(
-  <App />,
+  <ErrorBoundary>
+    <App />
+  </ErrorBoundary>,
   document.getElementById('root') || document.createElement('div'),
 );
-  
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+
 serviceWorker.unregister();
 
 export default App;
